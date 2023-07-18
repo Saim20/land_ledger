@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!--=============== REMIXICONS ===============-->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+
+    <!--=============== BOOTSTRAP ===============-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+
+    <!--=============== CSS ===============-->
+    <link rel="stylesheet" href="assets/css/styles.css">
+
+    <title>Create Khatiyan</title>
+
+    <script src="assets/Js/web3.min.js"></script>
+    <script src="assets/Js/jquery.min.js"></script>
+    <script src="assets/Js/popper.min.js"></script>
+    <script src="assets/Js/bootstrap.min.js"></script>1
+    <script src="assets/Js/web3Init.js"></script>
+</head>
+
+<body>
+    <!--=============== HEADER ===============-->
+    <header class="header">
+        <nav class="nav container">
+            <div class="nav__data">
+                <a href="index.html" class="nav__logo">
+                    <i class="ri-code-s-slash-line"></i> GreyDevs
+                </a>
+
+                <div class="nav__toggle" id="nav-toggle">
+                    <i class="ri-menu-line nav__toggle-menu"></i>
+                    <i class="ri-close-line nav__toggle-close"></i>
+                </div>
+            </div>
+
+            <!--=============== NAV MENU ===============-->
+            <div class="nav__menu" id="nav-menu">
+                <ul class="nav__list">
+                    <li>
+                        <a href="index.html" class="nav__link">Home</a>
+                    </li>
+
+                    <!--=============== DROPDOWN 1 ===============-->
+                    <li class="dropdown__item">
+                        <div class="nav__link dropdown__button">
+                            Users <i class="ri-arrow-down-s-line dropdown__arrow"></i>
+                        </div>
+
+                        <div class="dropdown__container">
+                            <div class="dropdown__content">
+                                <div class="dropdown__group">
+                                    <a href="createUser.html">
+                                        <div class="dropdown__icon">
+                                            <i class="ri-user-add-line"></i>
+                                        </div>
+
+                                        <span class="dropdown__title">Create User</span>
+                                    </a>
+                                </div>
+
+                                <div class="dropdown__group">
+                                    <a href="searchUser.html">
+                                        <div class="dropdown__icon">
+                                            <i class="ri-user-search-line"></i>
+                                        </div>
+
+                                        <span class="dropdown__title">Search User</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+
+                    <!--=============== DROPDOWN 2 ===============-->
+                    <li class="dropdown__item">
+                        <div class="nav__link dropdown__button">
+                            Plots <i class="ri-arrow-down-s-line dropdown__arrow"></i>
+                        </div>
+
+                        <div class="dropdown__container">
+                            <div class="dropdown__content">
+                                <div class="dropdown__group">
+                                    <a href="createPlot.html">
+                                        <div class="dropdown__icon">
+                                            <i class="ri-road-map-line"></i>
+                                        </div>
+
+                                        <span class="dropdown__title">Create Plot</span>
+                                    </a>
+                                </div>
+
+                                <div class="dropdown__group">
+                                    <a href="createPlot.html">
+                                        <div class="dropdown__icon">
+                                            <i class="ri-pin-distance-line"></i>
+                                        </div>
+
+                                        <span class="dropdown__title">Search Plot</span>
+                                    </a>
+                                </div>
+
+                            </div>
+                        </div>
+                    </li>
+
+                    <li>
+                        <a href="claculatehash.html" class="nav__link">Hashing</a>
+                    </li>
+
+                    <!--=============== DROPDOWN 3 ===============-->
+                    <li class="dropdown__item">
+                        <div class="nav__link dropdown__button">
+                            Khatiyan <i class="ri-arrow-down-s-line dropdown__arrow"></i>
+                        </div>
+
+                        <div class="dropdown__container">
+                            <div class="dropdown__content">
+                                <div class="dropdown__group">
+                                    <a href="createPlot.html">
+                                        <div class="dropdown__icon">
+                                            <i class="ri-draft-line"></i>
+                                        </div>
+
+                                        <span class="dropdown__title">Create Khatiyan</span>
+                                    </a>
+                                </div>
+                                <div class="dropdown__group">
+                                    <a href="createPlot.html">
+                                        <div class="dropdown__icon">
+                                            <i class="ri-file-search-line"></i>
+                                        </div>
+
+                                        <span class="dropdown__title">Search Khatian</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+    </header>
+
+    <!--=============== BODY ===============-->
+
+    <div class="col-md-10 container">
+        <h1 style="text-align:center">Add Khatian</h1>
+        <div class="row justify-content-around">
+            <div class="col-12 form-group row">
+                <label for="ddlKhatianType" class="col-2 col-form-label">Khatain Type</label>
+                <div class="col-10">
+                    <select class="form-control" id="ddlKhatianType">
+                        <option value="1">Create A New Khatian</option>
+                        <option value="2">Create From an Existing Khatian</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-12 form-group row">
+                <label class="col-2 col-form-label">Khatian No</label>
+                <div class="col-10">
+                    <input id="khatianiId" class="form-control" type="number">
+                </div>
+            </div>
+            <div class="col-12 form-group row">
+                <label class="col-2 col-form-label">Plot Hash</label>
+                <div class="col-10">
+                    <input id="plotHash" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="col-12 form-group row">
+                <label class="col-2 col-form-label">Percent Own</label>
+                <div class="col-10">
+                    <input id="percentOwn" class="form-control" type="number">
+                </div>
+            </div>
+            <div class="col-12 form-group row" id="buyFromDiv">
+                <label class="col-2 col-form-label">Previous Khatian Hash</label>
+                <div class="col-10">
+                    <input id="buyFrom" class="form-control" type="text">
+                </div>
+            </div>
+            <div class='items col-12'>
+                <div class="col-12 form-group row">
+                    <label class="col-2 col-form-label">Owern Nid</label>
+                    <div class="col-4">
+                        <input id="user1" class="form-control" type="number">
+                    </div>
+                    <label class="col-2 col-form-label">Owner Percentage</label>
+                    <div class="col-3">
+                        <input id="percentage1" class="form-control" type="number">
+                    </div>
+                    <div class="col-1">
+                        <a href="javascript:void(0);" class="add_field_button" title="Add field"><img
+                                src="assets/images/plus.png" alt='add' width="35" height="47" /></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 form-group row" id="success">
+                <div class="alert alert-success alert-dismissible fade show col-12">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <strong>Success!</strong>
+                </div>
+            </div>
+            <div class="col-12 form-group row" id="fail">
+                <div class="alert alert-danger alert-dismissible fade show col-12">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <strong>Failed!</strong> see console for Detail log.
+                </div>
+            </div>
+            <div class="col-12 justify-content-around form-group row">
+                <button id="btnAddKhatian" class="btn btn-secondary" style="width:120px;">Add Khatian</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var wrapper = $(".items"); //Fields wrapper
+        var add_button = $(".add_field_button"); //Add button ID
+        var x = 1; //initlal text box count
+        $(add_button).click(function (e) { //on add input button click
+            e.preventDefault();
+            x++; //text box increment
+            $(wrapper).prepend('<div class="col-12 form-group row"><label class="col-2 col-form-label">Owern Nid</label><div class="col-4"><input id="user' + x + '" class="form-control" type="number" ></div><label class="col-2 col-form-label">Owner Percentage</label><div class="col-3"><input id="percentage' + x + '" class="form-control" type="number" ></div><div class="col-1"><a href="javascript:void(0);" class="remove_field" title="remove field"><img src="assets/images/minus.png" alt="Remove" width="35" height="34"/></a></div></div>');
+            console.log(x);
+        });
+
+        $(wrapper).on("click", ".remove_field", function (e) { //user click on remove field
+            e.preventDefault();
+            var currentDiv = $(this).parent();
+            currentDiv.parent().remove();
+            x--;
+            console.log(x);
+        })
+
+        $('#success').hide();
+        $('#fail').hide();
+
+        var selection_type = $("#ddlKhatianType").val();
+        if (selection_type == 1) {
+            $("#buyFromDiv").hide();
+        }
+
+        $('#ddlKhatianType').change(function () {
+            var selection_type1 = $("#ddlKhatianType").val();
+            // console.log(selection_type1)
+            if (selection_type1 == 1) {
+                $("#buyFromDiv").hide();
+            } else if (selection_type1 == 2) {
+                $("#buyFromDiv").show();
+            }
+        });
+
+        $("#btnAddKhatian").click(function () {
+            var khatianiId = parseInt($('#khatianiId').val());
+            var plotHash = $('#plotHash').val();
+            var percentOwn = parseInt($('#percentOwn').val());
+            var buyFrom = $('#buyFrom').val();
+            var users = [];
+            var perOwnerPercentage = [];
+            for (i = 1; i <= x; i++) {
+                users.push(parseInt($('#user' + i).val()))
+                perOwnerPercentage.push(parseInt($('#percentage' + i).val()))
+            }
+            console.log(khatianiId, plotHash, percentOwn, buyFrom, users, perOwnerPercentage);
+
+            if ($("#ddlKhatianType").val() == 1) {
+                contract.createKhatiyan(khatianiId, plotHash, percentOwn, users, perOwnerPercentage, { gas: 1000000 }, (err, res) => {
+                    if (err) {
+                        console.log(err);
+                        $('#fail').show();
+                        $('#success').hide();
+                    } else {
+                        console.log("success");
+                        $('#success').show();
+                        $('#fail').hide();
+                    }
+                });
+            } else {
+                contract.createKhatiyanFromOld(khatianiId, plotHash, percentOwn, buyFrom, users, perOwnerPercentage, { gas: 1000000 }, (err, res) => {
+                    if (err) {
+                        console.log(err);
+                        $('#fail').show();
+                        $('#success').hide();
+                    } else {
+                        console.log("success");
+                        $('#success').show();
+                        $('#fail').hide();
+                    }
+                });
+            }
+        });
+
+    </script>
+
+    <!-- footer -->
+    <footer class="footer">
+        <div class="container-fluid">
+            <p style="text-align:center">A prototype by GreyDevs
+            <p>
+        </div>
+    </footer>
+
+    <!--=============== MAIN JS ===============-->
+    <script src="assets/js/main.js"></script>
+</body>
+
+</html>

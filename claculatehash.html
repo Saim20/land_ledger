@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!--=============== REMIXICONS ===============-->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+
+    <!--=============== BOOTSTRAP ===============-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+
+    <!--=============== CSS ===============-->
+    <link rel="stylesheet" href="assets/css/styles.css">
+
+    <title>Calculate Hash</title>
+
+    <script src="assets/Js/web3.min.js"></script>
+    <script src="assets/Js/jquery.min.js"></script>
+    <script src="assets/Js/popper.min.js"></script>
+    <script src="assets/Js/bootstrap.min.js"></script>1
+    <script src="assets/Js/web3Init.js"></script>
+</head>
+
+<body>
+    <!--=============== HEADER ===============-->
+    <header class="header">
+        <nav class="nav container">
+            <div class="nav__data">
+                <a href="index.html" class="nav__logo">
+                    <i class="ri-code-s-slash-line"></i> GreyDevs
+                </a>
+
+                <div class="nav__toggle" id="nav-toggle">
+                    <i class="ri-menu-line nav__toggle-menu"></i>
+                    <i class="ri-close-line nav__toggle-close"></i>
+                </div>
+            </div>
+
+            <!--=============== NAV MENU ===============-->
+            <div class="nav__menu" id="nav-menu">
+                <ul class="nav__list">
+                    <li>
+                        <a href="index.html" class="nav__link">Home</a>
+                    </li>
+
+                    <!--=============== DROPDOWN 1 ===============-->
+                    <li class="dropdown__item">
+                        <div class="nav__link dropdown__button">
+                            Users <i class="ri-arrow-down-s-line dropdown__arrow"></i>
+                        </div>
+
+                        <div class="dropdown__container">
+                            <div class="dropdown__content">
+                                <div class="dropdown__group">
+                                    <a href="createUser.html">
+                                        <div class="dropdown__icon">
+                                            <i class="ri-user-add-line"></i>
+                                        </div>
+
+                                        <span class="dropdown__title">Create User</span>
+                                    </a>
+                                </div>
+
+                                <div class="dropdown__group">
+                                    <a href="searchUser.html">
+                                        <div class="dropdown__icon">
+                                            <i class="ri-user-search-line"></i>
+                                        </div>
+
+                                        <span class="dropdown__title">Search User</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+
+                    <!--=============== DROPDOWN 2 ===============-->
+                    <li class="dropdown__item">
+                        <div class="nav__link dropdown__button">
+                            Plots <i class="ri-arrow-down-s-line dropdown__arrow"></i>
+                        </div>
+
+                        <div class="dropdown__container">
+                            <div class="dropdown__content">
+                                <div class="dropdown__group">
+                                    <a href="createPlot.html">
+                                        <div class="dropdown__icon">
+                                            <i class="ri-road-map-line"></i>
+                                        </div>
+
+                                        <span class="dropdown__title">Create Plot</span>
+                                    </a>
+                                </div>
+
+                                <div class="dropdown__group">
+                                    <a href="createPlot.html">
+                                        <div class="dropdown__icon">
+                                            <i class="ri-pin-distance-line"></i>
+                                        </div>
+
+                                        <span class="dropdown__title">Search Plot</span>
+                                    </a>
+                                </div>
+
+                            </div>
+                        </div>
+                    </li>
+
+                    <li>
+                        <a href="claculatehash.html" class="nav__link">Hashing</a>
+                    </li>
+
+                    <!--=============== DROPDOWN 3 ===============-->
+                    <li class="dropdown__item">
+                        <div class="nav__link dropdown__button">
+                            Khatiyan <i class="ri-arrow-down-s-line dropdown__arrow"></i>
+                        </div>
+
+                        <div class="dropdown__container">
+                            <div class="dropdown__content">
+                                <div class="dropdown__group">
+                                    <a href="createKhatian.html">
+                                        <div class="dropdown__icon">
+                                            <i class="ri-draft-line"></i>
+                                        </div>
+
+                                        <span class="dropdown__title">Create Khatiyan</span>
+                                    </a>
+                                </div>
+                                <div class="dropdown__group">
+                                    <a href="searchKhatiyan.html">
+                                        <div class="dropdown__icon">
+                                            <i class="ri-file-search-line"></i>
+                                        </div>
+
+                                        <span class="dropdown__title">Search Khatian</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+    </header>
+
+    <!--=============== BODY ===============-->
+
+    <div class="col-md-10 container">
+        <div class="row justify-content-around">
+            <h2 style="text-align:center">Get Plot Hash</h2>
+            <div class="col-12 form-group row">
+                <label class="col-2 col-form-label">Division</label>
+                <div class="col-10">
+                    <input id="division" class="form-control" type=>
+                </div>
+            </div>
+            <div class="col-12 form-group row">
+                <label class="col-2 col-form-label">District</label>
+                <div class="col-10">
+                    <input id="district" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="col-12 form-group row">
+                <label class="col-2 col-form-label">Thana</label>
+                <div class="col-10">
+                    <input id="thana" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="col-12 form-group row">
+                <label class="col-2 col-form-label">JL No</label>
+                <div class="col-10">
+                    <input id="JLNo" class="form-control" type="number">
+                </div>
+            </div>
+            <div class="col-12 form-group row">
+                <label class="col-2 col-form-label">Plot No</label>
+                <div class="col-10">
+                    <input id="plotNo" class="form-control" type="number">
+                </div>
+            </div>
+            <div class="col-12 form-group row" id="info_plot">
+                <div class="alert alert-info alert-dismissible fade show col-12">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <strong id="plot_text"></strong>
+                </div>
+            </div>
+            <div class="col-12 justify-content-around form-group row">
+                <button id="btnPlotHash" class="btn btn-secondary" style="width:150px;">Get Polt Hash</button>
+            </div>
+            <h2 style="text-align:center">Get Khatian Hash</h2>
+            <div class="col-12 form-group row">
+                <label class="col-2 col-form-label">Khatian No</label>
+                <div class="col-10">
+                    <input id="khatianiId" class="form-control" type="number">
+                </div>
+            </div>
+            <div class="col-12 form-group row">
+                <label class="col-2 col-form-label">Plot Hash</label>
+                <div class="col-10">
+                    <input id="plotHash" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="col-12 form-group row" id="info_khatian">
+                <div class="alert alert-info alert-dismissible fade show col-12">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <strong id="khatiani_text"></strong>
+                </div>
+            </div>
+            <div class="col-12 justify-content-around form-group row">
+                <button id="btnKhatianHash" class="btn btn-secondary" style="width:200px;">Get Khatian Hash</button>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="assets/Js/ethers-v4.min.js"></script>
+    <script>
+        $('#info_plot').hide();
+        $('#info_khatian').hide();
+
+        function forceInputUppercase(e) {
+            var start = e.target.selectionStart;
+            var end = e.target.selectionEnd;
+            e.target.value = e.target.value.toUpperCase();
+            e.target.setSelectionRange(start, end);
+        }
+
+        document.getElementById("division").addEventListener("keyup", forceInputUppercase, false);
+        document.getElementById("district").addEventListener("keyup", forceInputUppercase, false);
+        document.getElementById("thana").addEventListener("keyup", forceInputUppercase, false);
+
+        $("#btnPlotHash").click(function () {
+            var division = $("#division").val();
+            var district = $("#district").val();
+            var thana = $("#thana").val();
+            var JLNo = parseInt($("#JLNo").val());
+            var plotNo = parseInt($("#plotNo").val());
+            var hash = ethers.utils.solidityKeccak256(['string', 'string', 'string', 'uint16', 'uint16'], [division, district, thana, JLNo, plotNo]);
+            console.log(hash);
+            $('#plot_text').text(hash);
+            $('#info_plot').show();
+            $('#plotHash').val(hash);
+
+
+        });
+
+        $("#btnKhatianHash").click(function () {
+            var khatianiId = parseInt($("#khatianiId").val());
+            var plotHAsh = $("#plotHash").val();
+            var hash = ethers.utils.solidityKeccak256(['uint64', 'bytes32'], [khatianiId, plotHAsh]);
+            console.log(hash);
+            $('#khatiani_text').text(hash);
+            $('#info_khatian').show();
+
+        });
+
+    </script>
+
+    <!-- footer -->
+    <footer class="footer">
+        <div class="container-fluid">
+            <p style="text-align:center">A prototype by GreyDevs
+            <p>
+        </div>
+    </footer>
+
+    <!--=============== MAIN JS ===============-->
+    <script src="assets/js/main.js"></script>
+</body>
+
+</html>
