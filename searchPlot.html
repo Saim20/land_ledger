@@ -15,7 +15,7 @@
     <!--=============== CSS ===============-->
     <link rel="stylesheet" href="assets/css/styles.css">
 
-    <title>Create Plot</title>
+    <title>Search Plot</title>
 
     <script src="assets/Js/web3.min.js"></script>
     <script src="assets/Js/jquery.min.js"></script>
@@ -149,73 +149,34 @@
     </header>
 
     <!--=============== BODY ===============-->
-
     <div class="pad">
-        <h1 style="text-align:center">Create Plot</h1>
+        <h1 style="text-align:center">Search Plot</h1>
         <div class="row justify-content-around">
             <div class="col-12 form-group row">
-                <label class="col-2 col-form-label">Division</label>
-                <div class="col-10">
-                    <input id="division" class="form-control" type=>
+                <div class="col-6 offset-md-2">
+                    <input id="txtSearch" class="form-control" type="text" placeholder="Plot Hash">
+                </div>
+                <div class="col-3 justify-content-around form-group row">
+                    <button id="btnSearch" class="btn btn-secondary">Search</button>
                 </div>
             </div>
-            <div class="col-12 form-group row">
-                <label class="col-2 col-form-label">District</label>
-                <div class="col-10">
-                    <input id="district" class="form-control" type="text">
-                </div>
-            </div>
-            <div class="col-12 form-group row">
-                <label class="col-2 col-form-label">Thana</label>
-                <div class="col-10">
-                    <input id="thana" class="form-control" type="text">
-                </div>
-            </div>
-            <div class="col-12 form-group row">
-                <label class="col-2 col-form-label">JL No</label>
-                <div class="col-10">
-                    <input id="JLNo" class="form-control" type="number">
-                </div>
-            </div>
-            <div class="col-12 form-group row">
-                <label class="col-2 col-form-label">Plot No</label>
-                <div class="col-10">
-                    <input id="plotNo" class="form-control" type="number">
-                </div>
-            </div>
-            <!-- <div class="col-12 form-group row">
-                <label class="col-2 col-form-label">Plot Type</label>
-                <div class="col-10">
-                    <input id="plotType" class="form-control" type="number" >
-                </div>
-            </div> -->
-
-            <div class="col-12 form-group row">
-                <label for="plotType" class="col-2 col-form-label">Plot Type</label>
-                <div class="col-10">
-                    <select class="form-control" id="plotType">
-                        <option selected value="0">Select Land Type</option>
-                        <option value="1">Housing</option>
-                        <option value="2">Farming</option>
-                        <option value="3">Unused</option>
-                    </select>
-                </div>
-            </div>
-
-
-            <div include-html="home.html"></div>
-
-            <div class="col-12 form-group row">
-                <label class="col-2 col-form-label">Area (m<sup>2</sup>)</label>
-                <div class="col-10">
-                    <input id="plotArea" class="form-control" type="number">
-                </div>
-            </div>
-            <div class="col-12 form-group row" id="success">
-                <div class="alert alert-success alert-dismissible fade show col-12">
-                    <button type="button" class="close" data-dismiss="alert">&times;</button>
-                    <strong>Success!</strong>
-                </div>
+            <div class="col-12 justify-content-around" style="overflow-x:auto;">
+                <table class="table table-striped" id=tblPlot>
+                    <caption>Plot Details</caption>
+                    <thead>
+                        <tr>
+                            <th>District</th>
+                            <th>Division</th>
+                            <th>Thana</th>
+                            <th>JL Number</th>
+                            <th>Plot Number</th>
+                            <th>Plot Type</th>
+                            <th>Plot Area</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
             </div>
             <div class="col-12 form-group row" id="fail">
                 <div class="alert alert-danger alert-dismissible fade show col-12">
@@ -223,39 +184,38 @@
                     <strong>Failed!</strong> see console for Detail log.
                 </div>
             </div>
-            <div class="col-12 justify-content-around form-group row">
-                <button id="btnAddUser" class="btn btn-secondary" style="width:100px;">Add Plot</button>
-            </div>
         </div>
     </div>
 
     <script>
-        $('#success').hide();
+        $('[data-toggle="popover"]').popover();
         $('#fail').hide();
 
-        $("#btnAddUser").click(function () {
-            var division = $("#division").val().toUpperCase();
-            var district = $("#district").val().toUpperCase();
-            var thana = $("#thana").val().toUpperCase();
-            var JLNo = parseInt($("#JLNo").val());
-            var plotNo = parseInt($("#plotNo").val());
-            var plotType = parseInt($("#plotType").val());
-            var plotArea = parseInt($("#plotArea").val());
-            // console.log( division,district,thana,JLNo,plottypeof postCode,typeof nid);
+        $("#btnSearch").click(function () {
+            var hash = $('#txtSearch').val();
+            creatRow(hash);
+        });
 
-            contract.createPlot(division, district, thana, JLNo, plotNo, plotType, plotArea, { gas: 1000000 }, (err, res) => {
+        function creatRow(hash) {
+            contract.getPlotByHash(hash, (err, res) => {
                 if (err) {
                     console.log(err);
                     $('#fail').show();
-                    $('#success').hide();
                 } else {
-                    console.log("success");
-                    $('#success').show();
+                    console.log('Success');
+                    var division = web3.toAscii(res[0]);
+                    var district = web3.toAscii(res[1]);
+                    var thana = web3.toAscii(res[2]);
+                    var JLNo = res[3].toNumber();
+                    var plotNo = res[4].toNumber();
+                    var plotType = res[5].toNumber();
+                    var plotArea = res[6].toNumber();
+
                     $('#fail').hide();
+                    $('#tblPlot').append('<tr><td>' + division + '</td><td>' + district + '</td><td>' + thana + '</td><td>' + JLNo + '</td><td>' + plotNo + '</td><td>' + plotType + '</td><td>' + plotArea + '</td></tr>');
                 }
             });
-        });
-
+        }
     </script>
 
     <!-- footer -->

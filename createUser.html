@@ -30,7 +30,7 @@
         <nav class="nav container">
             <div class="nav__data">
                 <a href="index.html" class="nav__logo">
-                    <i class="ri-code-s-slash-line"></i> GreyDevs
+                    <img width="40" height="40" src="assets/images/GreyDevs.png" alt="logo"> GreyDevs
                 </a>
 
                 <div class="nav__toggle" id="nav-toggle">
@@ -150,8 +150,8 @@
 
     <!--=============== BODY ===============-->
 
-    <div class="container">
-        <h1 style="text-align:center">Add New User</h1>
+    <div class="pad">
+        <h1 style="text-align:center">Create User</h1>
         <div class="row justify-content-around">
             <div class="col-12 form-group row">
                 <label class="col-2 col-form-label">Full Name</label>
@@ -195,13 +195,13 @@
                     <input id="nid" class="form-control" type="number">
                 </div>
             </div>
-            <div class="col-12 form-group row" id="success" hidden>
+            <div class="col-12 form-group row" id="success" >
                 <div class="alert alert-success alert-dismissible fade show col-12">
                     <button type="button" class="close" data-dismiss="alert">&times;</button>
                     <strong>Success!</strong>
                 </div>
             </div>
-            <div class="col-12 form-group row" id="fail" hidden>
+            <div class="col-12 form-group row" id="fail" >
                 <div class="alert alert-danger alert-dismissible fade show col-12">
                     <button type="button" class="close" data-dismiss="alert">&times;</button>
                     <strong>Failed!</strong> see console for Detail log.
@@ -224,25 +224,12 @@
         $('#success').hide();
         $('#fail').hide();
 
-        function forceInputUppercase(e) {
-            var start = e.target.selectionStart;
-            var end = e.target.selectionEnd;
-            e.target.value = e.target.value.toUpperCase();
-            e.target.setSelectionRange(start, end);
-        }
-
-        document.getElementById("fullName").addEventListener("keyup", forceInputUppercase, false);
-        document.getElementById("fatherName").addEventListener("keyup", forceInputUppercase, false);
-        document.getElementById("district").addEventListener("keyup", forceInputUppercase, false);
-        document.getElementById("thana").addEventListener("keyup", forceInputUppercase, false);
-        document.getElementById("village").addEventListener("keyup", forceInputUppercase, false);
-
         $("#btnAddUser").click(function () {
-            var fullName = $("#fullName").val();
-            var fatherName = $("#fatherName").val();
-            var district = $("#district").val();
-            var thana = $("#thana").val();
-            var village = $("#village").val();
+            var fullName = $("#fullName").val().toUpperCase();
+            var fatherName = $("#fatherName").val().toUpperCase();
+            var district = $("#district").val().toUpperCase();
+            var thana = $("#thana").val().toUpperCase();
+            var village = $("#village").val().toUpperCase();
             var postCode = parseInt($("#postCode").val());
             var nid = parseInt($("#nid").val());
             console.log(typeof fullName, fatherName, district, thana, village, typeof postCode, typeof nid);
@@ -265,7 +252,7 @@
     <!-- footer -->
     <footer class="footer">
         <div class="container-fluid">
-            <p style="text-align:center">A prototype by GreyDevs
+            <p style="text-align:center">A GreyDevs product
             <p>
         </div>
     </footer>

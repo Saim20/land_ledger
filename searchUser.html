@@ -15,7 +15,7 @@
     <!--=============== CSS ===============-->
     <link rel="stylesheet" href="assets/css/styles.css">
 
-    <title>Create Plot</title>
+    <title>Search User</title>
 
     <script src="assets/Js/web3.min.js"></script>
     <script src="assets/Js/jquery.min.js"></script>
@@ -149,73 +149,33 @@
     </header>
 
     <!--=============== BODY ===============-->
-
     <div class="pad">
-        <h1 style="text-align:center">Create Plot</h1>
+        <h1 style="text-align:center">Search User</h1>
         <div class="row justify-content-around">
             <div class="col-12 form-group row">
-                <label class="col-2 col-form-label">Division</label>
-                <div class="col-10">
-                    <input id="division" class="form-control" type=>
+                <div class="col-6 offset-md-2">
+                    <input id="txtSearch" class="form-control" type="text" placeholder="User NID">
+                </div>
+                <div class="col-3 justify-content-around form-group row">
+                    <button id="btnSearch" class="btn btn-secondary">Search</button>
                 </div>
             </div>
-            <div class="col-12 form-group row">
-                <label class="col-2 col-form-label">District</label>
-                <div class="col-10">
-                    <input id="district" class="form-control" type="text">
-                </div>
-            </div>
-            <div class="col-12 form-group row">
-                <label class="col-2 col-form-label">Thana</label>
-                <div class="col-10">
-                    <input id="thana" class="form-control" type="text">
-                </div>
-            </div>
-            <div class="col-12 form-group row">
-                <label class="col-2 col-form-label">JL No</label>
-                <div class="col-10">
-                    <input id="JLNo" class="form-control" type="number">
-                </div>
-            </div>
-            <div class="col-12 form-group row">
-                <label class="col-2 col-form-label">Plot No</label>
-                <div class="col-10">
-                    <input id="plotNo" class="form-control" type="number">
-                </div>
-            </div>
-            <!-- <div class="col-12 form-group row">
-                <label class="col-2 col-form-label">Plot Type</label>
-                <div class="col-10">
-                    <input id="plotType" class="form-control" type="number" >
-                </div>
-            </div> -->
-
-            <div class="col-12 form-group row">
-                <label for="plotType" class="col-2 col-form-label">Plot Type</label>
-                <div class="col-10">
-                    <select class="form-control" id="plotType">
-                        <option selected value="0">Select Land Type</option>
-                        <option value="1">Housing</option>
-                        <option value="2">Farming</option>
-                        <option value="3">Unused</option>
-                    </select>
-                </div>
-            </div>
-
-
-            <div include-html="home.html"></div>
-
-            <div class="col-12 form-group row">
-                <label class="col-2 col-form-label">Area (m<sup>2</sup>)</label>
-                <div class="col-10">
-                    <input id="plotArea" class="form-control" type="number">
-                </div>
-            </div>
-            <div class="col-12 form-group row" id="success">
-                <div class="alert alert-success alert-dismissible fade show col-12">
-                    <button type="button" class="close" data-dismiss="alert">&times;</button>
-                    <strong>Success!</strong>
-                </div>
+            <div class="col-12 justify-content-around" style="overflow-x:auto;">
+                <table class="table table-striped" id=tblUser>
+                    <caption>User Details</caption>
+                    <thead>
+                        <tr>
+                            <th>Full Name</th>
+                            <th>Fathers Name</th>
+                            <th>District</th>
+                            <th>Thana</th>
+                            <th>Post</th>
+                            <th>Village</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
             </div>
             <div class="col-12 form-group row" id="fail">
                 <div class="alert alert-danger alert-dismissible fade show col-12">
@@ -223,39 +183,108 @@
                     <strong>Failed!</strong> see console for Detail log.
                 </div>
             </div>
-            <div class="col-12 justify-content-around form-group row">
-                <button id="btnAddUser" class="btn btn-secondary" style="width:100px;">Add Plot</button>
-            </div>
         </div>
     </div>
 
     <script>
-        $('#success').hide();
+        $('[data-toggle="popover"]').popover();
         $('#fail').hide();
 
-        $("#btnAddUser").click(function () {
-            var division = $("#division").val().toUpperCase();
-            var district = $("#district").val().toUpperCase();
-            var thana = $("#thana").val().toUpperCase();
-            var JLNo = parseInt($("#JLNo").val());
-            var plotNo = parseInt($("#plotNo").val());
-            var plotType = parseInt($("#plotType").val());
-            var plotArea = parseInt($("#plotArea").val());
-            // console.log( division,district,thana,JLNo,plottypeof postCode,typeof nid);
-
-            contract.createPlot(division, district, thana, JLNo, plotNo, plotType, plotArea, { gas: 1000000 }, (err, res) => {
-                if (err) {
-                    console.log(err);
-                    $('#fail').show();
-                    $('#success').hide();
-                } else {
-                    console.log("success");
-                    $('#success').show();
-                    $('#fail').hide();
-                }
-            });
+        $("#btnSearch").click(function () {
+            var nid = $('#txtSearch').val();
+            creatRow(nid);
         });
 
+        function creatRow(nid) {
+            contract.getUserByNid(nid, (err, res) => {
+                if (err) {
+                    console.log(err);
+                } else {
+                    var fullName = web3.toAscii(res[0]);
+                    var fathersName = web3.toAscii(res[1]);
+                    var district = web3.toAscii(res[2]);
+                    var thana = web3.toAscii(res[3]);
+                    var postCode = res[4].toNumber();
+                    var village = web3.toAscii(res[5]);
+
+                    contract.getUserOwnedByNid(nid, (err, res) => {
+                        var ownedKhatiyansCount = 0;
+                        var ownedKhatiyans = [];
+                        if (err) {
+                            console.log(err);
+                        } else {
+                            ownedKhatiyansCount = res[0].toNumber();
+                            ownedKhatiyans = res[1];
+                            console.log(ownedKhatiyans);
+                            console.log(ownedKhatiyansCount);
+
+                            var dropdown = '<div class="dropdown">\
+  <button class="btn btn-secondary dropdown-toggle" type="button"\
+   id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">\
+    Khatiyans\
+  </button> <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">'
+
+                            for (let i = 0; i < ownedKhatiyansCount; i++) {
+                                dropdown += '<a style="padding:10px;" href="searchKhatiyan.html?search='+ ownedKhatiyans[i] +'"> ' + i + ' </a>';
+
+                            }
+                            dropdown += '</div></div>'
+
+                            $('#fail').hide();
+                            $('#tblUser').append('<tr><td>' + fullName + '</td><td>' + fathersName + '</td><td>' + district + '</td><td>' + thana + '</td><td>' + postCode + '</td><td>' + village + '</td><td>' + dropdown + '</td></tr>')
+                        }
+                    });
+                }
+            });
+        }
+
+        $(tblUser).on("click", ".aOwner", function (e) {
+            e.preventDefault();
+            var text = this.text;
+            var text = text.replace(/\(/g, ',');
+            var text = text.replace(/\)/g, ',');
+            var text = text.split(',');
+
+
+        })
+
+        $(tblUser).on("click", ".aPlot", function (e) {
+            e.preventDefault();
+            var text = this.text;
+            contract.getPlotByHash(text, (err, res) => {
+                if (err) {
+                    console.log(err);
+                } else {
+                    var division = web3.toAscii(res[0]);
+                    var district = web3.toAscii(res[1]);
+                    var thana = web3.toAscii(res[2]);
+                    var JLNo = res[3].toNumber();
+                    var plotNo = res[4].toNumber();
+                    var plotType = res[5].toNumber();
+                    var plotArea = res[6].toNumber();
+                    console.log(division, district, thana, JLNo, plotNo, plotType, plotArea);
+
+                    alert("Plot Detail\ndivision: " + division + "\nDistrict: " + district + "\nThana: " + thana + "\nJLNo: " + JLNo + "\nPlot No: " + plotNo + "\nPlot Type: " + plotType + "\nArea: " + plotArea + " square meters");
+                }
+            });
+        })
+
+        $(tblUser).on("click", ".aSellTo", function (e) {
+            e.preventDefault();
+            var text = this.text;
+            var text = text.replace(/\(/g, ',');
+            var text = text.replace(/\)/g, ',');
+            var text = text.split(',');
+            console.log(text[0]);
+            creatRow(text[0]);
+        })
+
+        $(tblUser).on("click", ".aBuyFrom", function (e) {
+            e.preventDefault();
+            var text = this.text;
+            console.log(text);
+            creatRow(text);
+        })
     </script>
 
     <!-- footer -->

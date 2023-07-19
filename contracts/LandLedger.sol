@@ -41,17 +41,17 @@ contract LandLedger {
         userOwned[_uid].khatianList.push(_khatianHash);
     }
     
-    function createUser(string _fullName, string _fatheName, string _district, string _thana, uint24 _postCode, string _village, uint _nid) public{
+    function createUser(string _fullName, string _fathersName, string _district, string _thana, uint24 _postCode, string _village, uint _nid) public{
         require(msg.sender == contarctOwner, "You are not authorized");
         _fullName = toUpper(_fullName);
-        _fatheName = toUpper(_fatheName);
+        _fathersName = toUpper(_fathersName);
         _district = toUpper(_district);
         _thana = toUpper(_thana);
         _village = toUpper(_village);
         require(users[_nid].exists == false, "User already exist");
         
         users[_nid].fullName = stringToBytes32(_fullName);
-        users[_nid].fathersName = stringToBytes32(_fatheName);
+        users[_nid].fathersName = stringToBytes32(_fathersName);
         users[_nid].district = stringToBytes32(_district);
         users[_nid].thana = stringToBytes32(_thana);
         users[_nid].postCode = _postCode;
@@ -70,17 +70,17 @@ contract LandLedger {
         return userArray[id];
     }
     
-    function getUserByNid(uint _nid) public view returns(bytes32 fullName, bytes32 fatheName, bytes32 district, bytes32 thana, uint24 postCode, bytes32 village){
+    function getUserByNid(uint _nid) public view returns(bytes32 fullName, bytes32 fathersName, bytes32 district, bytes32 thana, uint24 postCode, bytes32 village){
         require(users[_nid].exists == true, "User Doesn't exist");
         fullName = users[_nid].fullName;
-        fatheName = users[_nid].fathersName;
+        fathersName = users[_nid].fathersName;
         district = users[_nid].district;
         thana = users[_nid].thana;
         postCode = users[_nid].postCode;
         village = users[_nid].village;
     }
     
-    function getUserOwnedByUid(uint _uid) public view returns(uint number, bytes32[] khatianList){
+    function getUserOwnedByNid(uint _uid) public view returns(uint number, bytes32[] khatianList){
         number = userOwned[_uid].number;
         khatianList =  userOwned[_uid].khatianList;
     }

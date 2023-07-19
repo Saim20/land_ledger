@@ -24,13 +24,13 @@
     <script src="assets/Js/web3Init.js"></script>
 </head>
 
-<body>
+<body style="color: white;">
     <!--=============== HEADER ===============-->
     <header class="header">
         <nav class="nav container">
             <div class="nav__data">
                 <a href="index.html" class="nav__logo">
-                    <i class="ri-code-s-slash-line"></i> GreyDevs
+                    <img width="40" height="40" src="assets/images/GreyDevs.png" alt="logo"> GreyDevs
                 </a>
 
                 <div class="nav__toggle" id="nav-toggle">
@@ -150,18 +150,67 @@
 
     <!--=============== BODY ===============-->
 
-    <center>
+    <div class="bg-image"></div>
+
+    <div style="top: 50%;left: 50%; position: fixed;">
         <h1>LandLedger</h1>
 
-    </center>
-
-    <!-- footer -->
-    <footer class="footer">
-        <div class="container-fluid">
-            <p style="text-align:center">A prototype by GreyDevs
-            <p>
+        <!-- footer -->
+        <div class="">
+            <div class="">
+                <p style="text-align:center">A GreyDevs product
+                <p>
+            </div>
         </div>
-    </footer>
+    </div>
+
+    <style>
+        body,
+        html {
+            height: 100%;
+            padding: 0px;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        .bg-image {
+            /* The image used */
+            background-image: url("https://images.unsplash.com/photo-1639815188546-c43c240ff4df?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1632&q=80");
+
+            /* Add the blur effect */
+            filter: blur(8px);
+            -webkit-filter: blur(8px);
+
+            /* Full height */
+            height: 100%;
+
+            /* Center and scale the image nicely */
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        /* Position text in the middle of the page/image */
+        .bg-text {
+            background-color: rgb(0, 0, 0);
+            /* Fallback color */
+            background-color: rgba(0, 0, 0, 0.4);
+            /* Black w/opacity/see-through */
+            color: white;
+            font-weight: bold;
+            border: 3px solid #f1f1f1;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 2;
+            width: 80%;
+            padding: 20px;
+            text-align: center;
+        }
+    </style>
 
     <!--=============== MAIN JS ===============-->
     <script src="assets/js/main.js"></script>

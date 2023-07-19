@@ -15,7 +15,7 @@
     <!--=============== CSS ===============-->
     <link rel="stylesheet" href="assets/css/styles.css">
 
-    <title>LandLedger</title>
+    <title>Search Khatiyan</title>
 
     <script src="assets/Js/web3.min.js"></script>
     <script src="assets/Js/jquery.min.js"></script>
@@ -30,7 +30,7 @@
         <nav class="nav container">
             <div class="nav__data">
                 <a href="index.html" class="nav__logo">
-                    <i class="ri-code-s-slash-line"></i> GreyDevs
+                    <img width="40" height="40" src="assets/images/GreyDevs.png" alt="logo"> GreyDevs
                 </a>
 
                 <div class="nav__toggle" id="nav-toggle">
@@ -149,21 +149,10 @@
     </header>
 
     <!--=============== BODY ===============-->
-    <div class="container">
-        <h1 style="text-align:center">Search</h1>
+    <div class="pad">
+        <h1 style="text-align:center">Search Khatiyan</h1>
         <div class="row justify-content-around">
             <div class="col-12 form-group row">
-                <!-- <label for="gender" class="col-1 col-form-label">Search For</label>
-                <div class="col-3" >
-                    <select class="form-control" id="selector">
-                            <option value="1">Khatian Detail</option>
-                        <option value="0">Search For</option>
-                        
-                        <option value="2">Plot Detail</option>
-                        <option value="3">User Detail</option>
-                        <option value="4">User Owned lsit</option>
-                    </select>
-                </div> -->
                 <div class="col-6 offset-md-2">
                     <input id="txtSearch" class="form-control" type="text" placeholder="Khatian Hash">
                 </div>
@@ -185,21 +174,6 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <!-- <tr>
-                            <td>1</td>
-                            <td>0x3e1510ddb6c09b7f0353a86282ecf4a7b0a6a3bba70e58da4a07f62ec2208880</td>
-                            <td>100</td>
-                            <td>
-                                <table>
-                                    <tbody>
-                                        <tr><td><a class="aOwner" href="#">123(50)</a><td></tr>
-                                        <tr><td><a class="aOwner" href="#">456(50)</a><td></tr>
-                                    </tbody>
-                                </table>
-                            </td>
-                            <td>0x8880a32ed72fe535093c8d4d0bb72ba72e3028ec54a3e402f6d3539b1019d052</td>
-                            <td>0x3e1510ddb6c09b7f0353a86282ecf4a7b0a6a3bba70e58da4a07f62ec2208880(100)</td>
-                        </tr> -->
                     </tbody>
                 </table>
             </div>
@@ -213,11 +187,16 @@
     </div>
 
     <script>
+        let search = new URLSearchParams(window.location.search).get('search');
+        if(search != null){
+            document.getElementById('txtSearch').value = search;
+            creatRow(search);
+        }
         $('[data-toggle="popover"]').popover();
         $('#fail').hide();
 
+
         $("#btnSearch").click(function () {
-            var selector = $('#selector').val();
             var hash = $('#txtSearch').val();
             creatRow(hash);
         });
@@ -251,7 +230,7 @@
                         owner = owner + '<tr><td><a class="aOwner" href="#">' + (res[6][i] + '(' + res[7][i] + ')</a><td></tr>');
                     }
                     owner = owner + '</tbody></table>';
-                    // console.log(owner);
+                    
                     $('#fail').hide();
                     $('#tblKhatian').append('<tr><td>' + res[0].toNumber() + '</td><td><a class="aPlot" href="#">' + res[1] + '</a></td><td>' + res[2].toNumber() + '</td><td>' + owner + '</td><td>' + buyFrom + '</td><td>' + sellto + '</td></tr>')
 
@@ -270,14 +249,14 @@
                     console.log(err);
                 } else {
                     var fullName = web3.toAscii(res[0]);
-                    var fatheName = web3.toAscii(res[1]);
+                    var fathersName = web3.toAscii(res[1]);
                     var district = web3.toAscii(res[2]);
                     var thana = web3.toAscii(res[3]);
                     var postCode = res[4].toNumber();
                     var village = web3.toAscii(res[5]);
-                    console.log(fullName, fatheName, district, thana, postCode, village);
+                    console.log(fullName, fathersName, district, thana, postCode, village);
 
-                    alert("User Detail\nName: " + fullName + "\nFather's Name: " + fatheName + "\ndistrict: " + district + "\nThana: " + thana + "\nPost Code: " + postCode + "\nVillage: " + village);
+                    alert("User Detail\nName: " + fullName + "\nFather's Name: " + fathersName + "\ndistrict: " + district + "\nThana: " + thana + "\nPost Code: " + postCode + "\nVillage: " + village);
                 }
             });
 
@@ -325,7 +304,7 @@
     <!-- footer -->
     <footer class="footer">
         <div class="container-fluid">
-            <p style="text-align:center">A prototype by GreyDevs
+            <p style="text-align:center">A GreyDevs product
             <p>
         </div>
     </footer>
