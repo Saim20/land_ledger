@@ -457,4 +457,4 @@ var LandContract = web3.eth.contract([
       "type": "function"
     }
   ]);
-var contract = LandContract.at('0x7c873Eb24A610449742c82794384Fc42812f26a0');
+var contract = LandContract.at('0x0ba9d97cC2AE0961BE3d9669e846F8dA474D2447');
